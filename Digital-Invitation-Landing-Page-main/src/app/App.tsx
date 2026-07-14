@@ -166,7 +166,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
           Kepada Yth: Bpk/Ibu/Saudara/i
         </p>
         <p
-          className="text-[#E50914] text-3xl font-semibold my-6"
+          className="text-[#E50914] text-3xl font-semibold my-4"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           {namaTamu}
