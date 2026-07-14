@@ -224,7 +224,7 @@ function HeroSection() {
 
       <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[#141414] via-[#141414]/70 to-transparent pointer-events-none" />
 
-      <div className="relative z-10 px-6 pb-16 text-center flex flex-col items-center">
+      <div className="absolute inset-0 z-10 px-6 pb-16 text-center flex flex-col justify-center items-center">
         <span
           className="bg-[#E50914] text-white text-[13px] uppercase tracking-[0.3em] px-3 py-1 rounded-sm font-semibold mb-5 inline-block"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
