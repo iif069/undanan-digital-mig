@@ -837,12 +837,21 @@ export default function WeddingInvitation() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const handleOpen = () => {
-    setIsOpen(true);
-    if (audioRef.current) {
-      audioRef.current.play().catch(err => console.log("Audio autoplay prevented by browser", err));
-      setIsPlaying(true);
+  // FUNGSI BARU: Memutar musik secara otomatis tepat setelah halaman utama berhasil termuat
+  useEffect(() => {
+    if (isOpen && audioRef.current) {
+      audioRef.current.play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch(err => {
+          console.log("Autoplay diblokir oleh browser, membutuhkan interaksi user", err);
+        });
     }
+  }, [isOpen]);
+
+  const handleOpen = () => {
+    setIsOpen(true); // Cukup ubah state menjadi true, pemutaran musik akan diambil alih oleh useEffect di atas
   };
 
   const toggleAudio = () => {
