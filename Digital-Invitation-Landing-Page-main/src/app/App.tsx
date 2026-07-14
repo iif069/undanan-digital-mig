@@ -8,29 +8,17 @@ import {
   Heart,
   ChevronDown,
   Mail,
-  Phone,
   Play,
   Volume2,
   VolumeX,
-  Gift,
-  Users,
 } from "lucide-react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-
-// 1. Pecah path URL menjadi array (contoh: "/Fufu-Fafa/Andi" menjadi ["Fufu-Fafa", "Andi"])
 const paths = window.location.pathname.split("/").filter(Boolean);
-console.log("Isi paths:", paths);
-
-// 2. Ambil nama klien (calon pengantin) dari segmen pertama URL
-// Jika kosong, otomatis fallback ke data default pertama di database kamu (misal: "Fufu-Fafa")
 const clientKey = paths[0] || "Fufu-Fafa";
 const CURRENT_CLIENT = CLIENT_DATABASE[clientKey] || CLIENT_DATABASE["Fufu-Fafa"];
 
-// 3. Ambil nama tamu undangan dari segmen kedua (ujung URL)
-// Kita tambahkan decodeURIComponent agar karakter seperti %20 otomatis jadi spasi kembali
-// Kita replace juga tanda strip (-) atau underscore (_) menjadi spasi biasa agar nama tamu terlihat rapi
 const rawGuestName = paths[1] || new URLSearchParams(window.location.search).get('to') || 'Tamu Undangan';
 const namaTamu = decodeURIComponent(rawGuestName).replace(/[-_]/g, ' ');
 
@@ -39,9 +27,9 @@ const BRIDE = CURRENT_CLIENT.bride;
 const AKAD = CURRENT_CLIENT.akad;
 const RESEPSI = CURRENT_CLIENT.resepsi;
 const TARGET_DATE = new Date(CURRENT_CLIENT.targetDate);
-const MAPS_URL = CURRENT_CLIENT.mapsUrl;
-const LOVE_STORY: any[] = CURRENT_CLIENT.loveStory || [];
-const ACCOUNTS: any[] = CURRENT_CLIENT.accounts || [];
+const GROOM_PHOTO = CURRENT_CLIENT.photos.groom;
+const BRIDE_PHOTO = CURRENT_CLIENT.photos.bride;
+const GALLERY_PHOTOS: any[] = CURRENT_CLIENT.gallery || [];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function useCountdown(target: Date) {
@@ -83,7 +71,7 @@ function FlipCard({ value, label }: { value: number; label: string }) {
           {String(value).padStart(2, "0")}
         </span>
       </div>
-      <span className="text-[10px] uppercase tracking-widest text-gray-400" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+      <span className="text-[13px] uppercase tracking-widest text-gray-400" style={{ fontFamily: "'DM Sans', sans-serif" }}>
         {label}
       </span>
     </div>
@@ -93,7 +81,7 @@ function FlipCard({ value, label }: { value: number; label: string }) {
 function SectionTag({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-block bg-[#E50914] text-white text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-sm font-semibold mb-4"
+      className="inline-block bg-[#E50914] text-white text-[13px] uppercase tracking-[0.2em] px-3 py-1 rounded-sm font-semibold mb-4"
       style={{ fontFamily: "'DM Sans', sans-serif" }}
     >
       {children}
@@ -115,7 +103,6 @@ function Divider() {
 function OpeningScreen({ onOpen }: { onOpen: () => void }) {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
-      {/* Subtle vignette lines */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_black_100%)] pointer-events-none" />
 
       <motion.div
@@ -124,9 +111,8 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative z-10 flex flex-col items-center"
       >
-        {/* Netflix-style title */}
         <p
-          className="text-[#E50914] text-sm tracking-[0.5em] uppercase mb-1"
+          className="text-[#E50914] text-base tracking-[0.5em] uppercase mb-1"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           THE
@@ -143,15 +129,13 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
           WEDDING
         </h1>
         <p
-          className="text-white text-lg mb-10"
+          className="text-white text-xl mb-10"
           style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
         >
           of {GROOM.nick} &amp; {BRIDE.nick}
         </p>
 
-        {/* Avatar placeholders */}
         <div className="flex gap-5 mb-10">
-          {/* Groom */}
           <div className="flex flex-col items-center gap-2">
             <div className="w-28 h-28 md:w-36 md:h-36 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shadow-2xl">
               <svg viewBox="0 0 80 80" className="w-16 h-16 opacity-90">
@@ -160,11 +144,10 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
                 <path d="M20 55 Q40 68 60 55" stroke="white" strokeWidth="5" fill="none" strokeLinecap="round" />
               </svg>
             </div>
-            <p className="text-white/70 text-xs tracking-wide" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/70 text-[15px] tracking-wide mt-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {GROOM.nick}
             </p>
           </div>
-          {/* Bride */}
           <div className="flex flex-col items-center gap-2">
             <div className="w-28 h-28 md:w-36 md:h-36 rounded-xl bg-gradient-to-br from-pink-600 to-rose-700 flex items-center justify-center shadow-2xl">
               <svg viewBox="0 0 80 80" className="w-16 h-16 opacity-90">
@@ -173,27 +156,25 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
                 <path d="M20 55 Q40 68 60 55" stroke="white" strokeWidth="5" fill="none" strokeLinecap="round" />
               </svg>
             </div>
-            <p className="text-white/70 text-xs tracking-wide" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/70 text-[15px] tracking-wide mt-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {BRIDE.nick}
             </p>
           </div>
         </div>
 
-        {/* Guest name */}
-        <p className="text-white/60 text-sm mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/60 text-base mb-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Kepada Yth: Bpk/Ibu/Saudara/i
         </p>
         <p
-          className="text-[#E50914] text-2xl font-semibold mb-1"
+          className="text-[#E50914] text-3xl font-semibold mb-1"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           {namaTamu}
         </p>
-        <p className="text-white/40 text-xs mb-8" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/40 text-[13px] mb-8" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           *) Mohon maaf apabila ada kesalahan penulisan nama/gelar
         </p>
 
-        {/* CTA Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
@@ -213,10 +194,8 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
 function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
-      {/* Background gradient (Netflix-style dark cinematic) */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-neutral-900 to-black">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,_rgba(229,9,20,0.12)_0%,_transparent_70%)]" />
-        {/* Decorative film grain overlay */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -225,11 +204,9 @@ function HeroSection() {
         />
       </div>
 
-      {/* Decorative rings */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/5 pointer-events-none" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[#E50914]/10 pointer-events-none" />
 
-      {/* Center monogram */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] text-center">
         <div className="flex flex-col items-center">
           <span
@@ -245,20 +222,18 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom overlay gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[#141414] via-[#141414]/70 to-transparent pointer-events-none" />
 
-      {/* Content */}
       <div className="relative z-10 px-6 pb-16 text-center flex flex-col items-center">
         <span
-          className="bg-[#E50914] text-white text-xs uppercase tracking-[0.3em] px-3 py-1 rounded-sm font-semibold mb-5 inline-block"
+          className="bg-[#E50914] text-white text-[13px] uppercase tracking-[0.3em] px-3 py-1 rounded-sm font-semibold mb-5 inline-block"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           Coming Soon
         </span>
 
         <p
-          className="text-[#E50914] text-sm tracking-[0.5em] uppercase mb-0"
+          className="text-[#E50914] text-base tracking-[0.5em] uppercase mb-0"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           THE
@@ -280,7 +255,7 @@ function HeroSection() {
         >
           {GROOM.nick} &amp; {BRIDE.nick}
         </p>
-        <p className="text-white/60 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/60 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           {AKAD.date}
         </p>
 
@@ -292,10 +267,6 @@ function HeroSection() {
   );
 }
 
-// ─── Couple Photo Placeholder ─────────────────────────────────────────────────
-// Ganti src di bawah dengan URL/import foto asli mempelai
-const GROOM_PHOTO = CURRENT_CLIENT.photos.groom;
-const BRIDE_PHOTO = CURRENT_CLIENT.photos.bride;
 // ─── Couple Section ───────────────────────────────────────────────────────────
 function CoupleSection() {
   return (
@@ -303,7 +274,6 @@ function CoupleSection() {
       <div className="max-w-2xl mx-auto text-center">
         <SectionTag>Mempelai</SectionTag>
 
-        {/* Bismillah — responsive, tidak overflow di hp */}
         <h2
           className="text-white w-full text-center mb-2 leading-snug"
           style={{
@@ -315,14 +285,13 @@ function CoupleSection() {
           Bismillahirrahmanirrahim
         </h2>
 
-        <p className="text-white/50 text-sm mb-12 max-w-md mx-auto" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/50 text-[15px] md:text-base mb-12 max-w-md mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Dengan memohon rahmat dan ridho Allah SWT, kami mengundang kehadiran Bapak/Ibu/Saudara/i pada pernikahan kami.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
           {/* Groom */}
           <div className="flex flex-col items-center">
-            {/* Foto mempelai pria — ganti src GROOM_PHOTO dengan foto asli */}
             <div className="w-40 h-52 md:w-44 md:h-56 rounded-2xl overflow-hidden mb-4 border-2 border-[#E50914]/30 shadow-2xl shadow-black/60">
               <img
                 src={GROOM_PHOTO}
@@ -331,22 +300,21 @@ function CoupleSection() {
               />
             </div>
             <p
-              className="text-[#E50914] text-2xl mb-1"
+              className="text-[#E50914] text-3xl mb-1"
               style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
             >
               {GROOM.nick}
             </p>
-            <p className="text-white font-semibold text-base mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white font-semibold text-lg mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {GROOM.name}
             </p>
-            <p className="text-white/50 text-xs leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/50 text-[15px] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Putra dari<br />
               <span className="text-white/70">{GROOM.father}</span><br />
               <span className="text-white/70">&amp; {GROOM.mother}</span>
             </p>
           </div>
 
-          {/* Divider */}
           <div className="flex flex-col items-center gap-2 py-4">
             <div className="w-px h-10 bg-white/10 hidden md:block" />
             <Heart size={28} className="text-[#E50914]" fill="#E50914" />
@@ -355,7 +323,6 @@ function CoupleSection() {
 
           {/* Bride */}
           <div className="flex flex-col items-center">
-            {/* Foto mempelai wanita — ganti src BRIDE_PHOTO dengan foto asli */}
             <div className="w-40 h-52 md:w-44 md:h-56 rounded-2xl overflow-hidden mb-4 border-2 border-[#E50914]/30 shadow-2xl shadow-black/60">
               <img
                 src={BRIDE_PHOTO}
@@ -364,15 +331,15 @@ function CoupleSection() {
               />
             </div>
             <p
-              className="text-[#E50914] text-2xl mb-1"
+              className="text-[#E50914] text-3xl mb-1"
               style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
             >
               {BRIDE.nick}
             </p>
-            <p className="text-white font-semibold text-base mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white font-semibold text-lg mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {BRIDE.name}
             </p>
-            <p className="text-white/50 text-xs leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/50 text-[15px] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Putri dari<br />
               <span className="text-white/70">{BRIDE.father}</span><br />
               <span className="text-white/70">&amp; {BRIDE.mother}</span>
@@ -436,20 +403,20 @@ function EventSection() {
             </div>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <Calendar size={15} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <Calendar size={18} className="text-white/40 mt-0.5 shrink-0" />
+                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {AKAD.date}
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <Clock size={15} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <Clock size={18} className="text-white/40 mt-0.5 shrink-0" />
+                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {AKAD.time}
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <MapPin size={15} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <MapPin size={18} className="text-white/40 mt-0.5 shrink-0" />
+                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {AKAD.venue}
                 </p>
               </div>
@@ -469,20 +436,20 @@ function EventSection() {
             </div>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <Calendar size={15} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <Calendar size={18} className="text-white/40 mt-0.5 shrink-0" />
+                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {RESEPSI.date}
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <Clock size={15} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <Clock size={18} className="text-white/40 mt-0.5 shrink-0" />
+                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {RESEPSI.time}
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <MapPin size={15} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <MapPin size={18} className="text-white/40 mt-0.5 shrink-0" />
+                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {RESEPSI.venue}
                 </p>
               </div>
@@ -490,17 +457,16 @@ function EventSection() {
           </div>
         </div>
 
-        {/* Map button */}
         <motion.a
           href="https://maps.google.com"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2 mt-8 border border-[#E50914] text-[#E50914] hover:bg-[#E50914] hover:text-white px-6 py-3 rounded-md text-sm font-semibold transition-colors duration-200"
+          className="inline-flex items-center gap-2 mt-8 border border-[#E50914] text-[#E50914] hover:bg-[#E50914] hover:text-white px-6 py-3 rounded-md text-[15px] font-semibold transition-colors duration-200"
           style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.05em" }}
         >
-          <MapPin size={16} />
+          <MapPin size={18} />
           LIHAT LOKASI DI MAPS
         </motion.a>
       </div>
@@ -543,7 +509,7 @@ function LoveStorySection() {
             >
               <div className="shrink-0 mt-1">
                 <Play
-                  size={16}
+                  size={18}
                   className={ep.special ? "text-[#E50914]" : "text-white/30 group-hover:text-white/60"}
                   fill={ep.special ? "#E50914" : "transparent"}
                 />
@@ -551,25 +517,178 @@ function LoveStorySection() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1">
                   <span
-                    className={`text-xs font-semibold ${ep.special ? "text-[#E50914]" : "text-white/30"}`}
+                    className={`text-[13px] md:text-sm font-semibold ${ep.special ? "text-[#E50914]" : "text-white/30"}`}
                     style={{ fontFamily: "'DM Sans', sans-serif" }}
                   >
                     {ep.ep}
                   </span>
-                  <span className="text-white/20 text-xs" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                  <span className="text-white/20 text-[13px] md:text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                     {ep.year}
                   </span>
                 </div>
                 <p
-                  className={`font-semibold text-sm mb-1 ${ep.special ? "text-white" : "text-white/80"}`}
+                  className={`font-semibold text-base mb-1 ${ep.special ? "text-white" : "text-white/80"}`}
                   style={{ fontFamily: "'DM Sans', sans-serif" }}
                 >
                   {ep.label}
                 </p>
-                <p className="text-white/40 text-xs leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/50 text-[15px] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {ep.desc}
                 </p>
               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Gallery Section ──────────────────────────────────────────────────────────
+function GallerySection() {
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: "left" | "right") => {
+    if (!rowRef.current) return;
+    rowRef.current.scrollBy({ left: dir === "right" ? 280 : -280, behavior: "smooth" });
+  };
+
+  return (
+    <section className="py-20 bg-[#0d0d0d] relative overflow-hidden">
+      <div className="px-6 max-w-7xl mx-auto">
+        <div className="flex items-end justify-between mb-6">
+          <div>
+            <SectionTag>Our Gallery</SectionTag>
+            <h2
+              className="text-white text-3xl md:text-4xl"
+              style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.1em" }}
+            >
+              MOMENTS
+            </h2>
+          </div>
+          
+          <div className="hidden md:flex gap-2">
+            <button
+              onClick={() => scroll("left")}
+              className="p-3 bg-[#1a1a1a] border border-white/10 rounded-full text-white/50 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all"
+            >
+              <ChevronDown size={20} className="rotate-90" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              className="p-3 bg-[#1a1a1a] border border-white/10 rounded-full text-white/50 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all"
+            >
+              <ChevronDown size={20} className="-rotate-90" />
+            </button>
+          </div>
+        </div>
+
+        <div
+          ref={rowRef}
+          className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-2 hide-scrollbar"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {GALLERY_PHOTOS?.map((photo, idx) => (
+            <motion.div
+              key={idx}
+              whileHover={{ scale: 1.02 }}
+              className="shrink-0 w-[260px] h-[160px] md:w-[320px] md:h-[200px] snap-center cursor-pointer relative group rounded-md overflow-hidden border border-white/5 shadow-xl"
+              onClick={() => setLightbox(idx)}
+            >
+              <img
+                src={photo}
+                alt={`Gallery ${idx + 1}`}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full border-2 border-[#E50914] bg-black/50 flex items-center justify-center pl-1">
+                  <Play size={20} className="text-[#E50914]" fill="#E50914" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <AnimatePresence>
+          {lightbox !== null && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-10"
+              onClick={() => setLightbox(null)}
+            >
+              <motion.img
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                src={GALLERY_PHOTOS[lightbox]}
+                alt={`Enlarged ${lightbox + 1}`}
+                className="max-w-full max-h-full rounded-md shadow-2xl"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+}
+
+// ─── Gift Section ─────────────────────────────────────────────────────────────
+function GiftSection() {
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const copy = (text: string, label: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(label);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
+  return (
+    <section className="py-20 px-6 bg-[#0d0d0d]">
+      <div className="max-w-lg mx-auto text-center">
+        <SectionTag>Wedding Gift</SectionTag>
+        <h2
+          className="text-white text-3xl md:text-4xl mb-4"
+          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.1em" }}
+        >
+          AMPLOP DIGITAL
+        </h2>
+        <p className="text-white/50 text-[15px] mb-10 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+          Doa restu Anda adalah hadiah terbaik. Namun jika ingin memberikan tanda kasih:
+        </p>
+
+        <div className="space-y-4">
+          {[
+            { bank: "BRI", no: "1234-5678-9012-3456", name: "Ahmad Rizky" },
+            { bank: "BCA", no: "0987-6543-2109", name: "Dewi Rahayu" },
+          ].map((item) => (
+            <div
+              key={item.bank}
+              className="bg-[#1a1a1a] border border-white/10 rounded-xl p-6 text-left flex items-center justify-between group hover:border-white/20 transition-colors"
+            >
+              <div>
+                <p
+                  className="text-[#E50914] font-bold text-[15px] mb-1"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.1em" }}
+                >
+                  {item.bank}
+                </p>
+                <p className="text-white font-semibold text-lg" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                  {item.no}
+                </p>
+                <p className="text-white/40 text-[13px] mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                  a.n. {item.name}
+                </p>
+              </div>
+              <button
+                onClick={() => copy(item.no.replace(/-/g, ""), item.bank)}
+                className="text-[13px] border border-white/20 text-white/50 hover:border-[#E50914] hover:text-[#E50914] px-4 py-2 rounded-lg transition-all duration-200 font-semibold"
+                style={{ fontFamily: "'DM Sans', sans-serif" }}
+              >
+                {copied === item.bank ? "✓ COPIED" : "SALIN"}
+              </button>
             </div>
           ))}
         </div>
@@ -600,7 +719,7 @@ function RSVPSection() {
         >
           RSVP
         </h2>
-        <p className="text-white/50 text-sm mb-10" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/50 text-[15px] mb-10" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Kehadiran Anda adalah kebahagiaan terbesar bagi kami
         </p>
 
@@ -617,7 +736,7 @@ function RSVPSection() {
             >
               Terima Kasih!
             </p>
-            <p className="text-white/50 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/50 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Konfirmasi kehadiran Anda telah kami terima.
             </p>
           </motion.div>
@@ -625,7 +744,7 @@ function RSVPSection() {
           <form onSubmit={handleSubmit} className="bg-[#1a1a1a] border border-white/10 rounded-xl p-8 text-left space-y-5">
             <div>
               <label
-                className="block text-white/60 text-xs uppercase tracking-widest mb-2"
+                className="block text-white/60 text-[13px] uppercase tracking-widest mb-2"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
                 Nama Lengkap
@@ -634,14 +753,14 @@ function RSVPSection() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Masukkan nama Anda"
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/25 text-sm focus:outline-none focus:border-[#E50914]/50 transition-colors"
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/25 text-base focus:outline-none focus:border-[#E50914]/50 transition-colors"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               />
             </div>
 
             <div>
               <label
-                className="block text-white/60 text-xs uppercase tracking-widest mb-2"
+                className="block text-white/60 text-[13px] uppercase tracking-widest mb-2"
                 style={{ fontFamily: "'DM Sans', sans-serif" }}
               >
                 Konfirmasi Kehadiran
@@ -652,7 +771,7 @@ function RSVPSection() {
                     key={opt}
                     type="button"
                     onClick={() => setAttend(opt)}
-                    className={`py-3 rounded-lg text-sm font-semibold border transition-all duration-200 ${
+                    className={`py-3 rounded-lg text-[15px] font-semibold border transition-all duration-200 ${
                       attend === opt
                         ? "bg-[#E50914] border-[#E50914] text-white"
                         : "bg-white/5 border-white/10 text-white/50 hover:border-white/25"
@@ -669,7 +788,7 @@ function RSVPSection() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="w-full bg-[#E50914] hover:bg-[#f6121d] text-white font-semibold py-4 rounded-lg text-sm tracking-widest transition-colors duration-200 disabled:opacity-40"
+              className="w-full bg-[#E50914] hover:bg-[#f6121d] text-white font-semibold py-4 rounded-lg text-base tracking-widest transition-colors duration-200 disabled:opacity-40"
               style={{ fontFamily: "'DM Sans', sans-serif" }}
               disabled={!name || !attend}
             >
@@ -682,356 +801,83 @@ function RSVPSection() {
   );
 }
 
-// ─── Gift Section ─────────────────────────────────────────────────────────────
-function GiftSection() {
-  const [copied, setCopied] = useState<string | null>(null);
-
-  const copy = (text: string, label: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(label);
-    setTimeout(() => setCopied(null), 2000);
-  };
-
+// ─── Footer Section ───────────────────────────────────────────────────────────
+function FooterSection() {
   return (
-    <section className="py-20 px-6 bg-[#0d0d0d]">
-      <div className="max-w-lg mx-auto text-center">
-        <SectionTag>Wedding Gift</SectionTag>
-        <h2
-          className="text-white text-3xl md:text-4xl mb-4"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.1em" }}
-        >
-          AMPLOP DIGITAL
-        </h2>
-        <p className="text-white/50 text-sm mb-10" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-          Doa restu Anda adalah hadiah terbaik. Namun jika ingin memberikan tanda kasih:
-        </p>
-
-        <div className="space-y-4">
-          {[
-            { bank: "BRI", no: "1234-5678-9012-3456", name: "Ahmad Rizky" },
-            { bank: "BCA", no: "0987-6543-2109", name: "Dewi Rahayu" },
-          ].map((item) => (
-            <div
-              key={item.bank}
-              className="bg-[#1a1a1a] border border-white/10 rounded-xl p-6 text-left flex items-center justify-between group hover:border-white/20 transition-colors"
-            >
-              <div>
-                <p
-                  className="text-[#E50914] font-bold text-sm mb-1"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.1em" }}
-                >
-                  {item.bank}
-                </p>
-                <p className="text-white font-semibold text-base" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                  {item.no}
-                </p>
-                <p className="text-white/40 text-xs mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                  a.n. {item.name}
-                </p>
-              </div>
-              <button
-                onClick={() => copy(item.no.replace(/-/g, ""), item.bank)}
-                className="text-xs border border-white/20 text-white/50 hover:border-[#E50914] hover:text-[#E50914] px-3 py-2 rounded-lg transition-all duration-200"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                {copied === item.bank ? "✓ Copied" : "Salin"}
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Gallery Section ──────────────────────────────────────────────────────────
-const GALLERY_PHOTOS: any[] = CURRENT_CLIENT.gallery;
-
-function GallerySection() {
-  const [lightbox, setLightbox] = useState<number | null>(null);
-  const rowRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (dir: "left" | "right") => {
-    if (!rowRef.current) return;
-    rowRef.current.scrollBy({ left: dir === "right" ? 280 : -280, behavior: "smooth" });
-  };
-
-  return (
-    <section className="py-20 bg-[#0d0d0d] relative overflow-hidden">
-      <div className="px-6 max-w-7xl mx-auto">
-        <div className="flex items-end justify-between mb-6">
-          <div>
-            <SectionTag>Our Gallery</SectionTag>
-            <h2
-              className="text-white text-3xl md:text-4xl"
-              style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.1em" }}
-            >
-              GALERI FOTO
-            </h2>
-          </div>
-          {/* Scroll arrows — desktop */}
-          <div className="hidden md:flex gap-2">
-            <button
-              onClick={() => scroll("left")}
-              className="w-10 h-10 rounded-full border border-white/20 text-white/50 hover:border-white/50 hover:text-white flex items-center justify-center transition-all"
-            >
-              ‹
-            </button>
-            <button
-              onClick={() => scroll("right")}
-              className="w-10 h-10 rounded-full border border-white/20 text-white/50 hover:border-white/50 hover:text-white flex items-center justify-center transition-all"
-            >
-              ›
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Netflix-style horizontal scroll row */}
-      <div
-        ref={rowRef}
-        className="flex gap-3 overflow-x-auto scroll-smooth pb-4 px-6"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {GALLERY_PHOTOS.map((photo, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.04, zIndex: 10 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setLightbox(i)}
-            className="relative shrink-0 cursor-pointer rounded-xl overflow-hidden group"
-            style={{ width: "clamp(180px, 40vw, 260px)", aspectRatio: "3/4" }}
-          >
-            <img
-              src={photo.url}
-              alt={photo.label}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-              <p
-                className="text-white text-sm font-semibold"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                {photo.label}
-              </p>
-            </div>
-            {/* Netflix-style red bottom bar on hover */}
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E50914] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-            onClick={() => setLightbox(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="relative max-w-lg w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={GALLERY_PHOTOS[lightbox].url.replace("w=600", "w=1080")}
-                alt={GALLERY_PHOTOS[lightbox].label}
-                className="w-full rounded-xl shadow-2xl object-cover"
-                style={{ maxHeight: "80vh" }}
-              />
-              <div className="absolute top-3 right-3 flex gap-2">
-                {/* Prev */}
-                {lightbox > 0 && (
-                  <button
-                    onClick={() => setLightbox(lightbox - 1)}
-                    className="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#E50914] transition-colors"
-                  >‹</button>
-                )}
-                {/* Next */}
-                {lightbox < GALLERY_PHOTOS.length - 1 && (
-                  <button
-                    onClick={() => setLightbox(lightbox + 1)}
-                    className="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#E50914] transition-colors"
-                  >›</button>
-                )}
-                {/* Close */}
-                <button
-                  onClick={() => setLightbox(null)}
-                  className="w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#E50914] transition-colors text-lg"
-                >×</button>
-              </div>
-              <p
-                className="text-center text-white/60 text-sm mt-3"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                {GALLERY_PHOTOS[lightbox].label} · {lightbox + 1} / {GALLERY_PHOTOS.length}
-              </p>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </section>
-  );
-}
-
-// ─── Closing Section ──────────────────────────────────────────────────────────
-function ClosingSection() {
-  return (
-    <section className="py-20 px-6 bg-[#141414] text-center">
-      <div className="max-w-lg mx-auto">
-        <p
-          className="text-[#E50914] text-sm tracking-[0.5em] uppercase mb-0"
-          style={{ fontFamily: "'DM Sans', sans-serif" }}
-        >
-          THE
-        </p>
-        <h2
-          className="text-white leading-none mb-4"
-          style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: "clamp(2.5rem, 10vw, 5rem)",
-            letterSpacing: "0.04em",
-          }}
-        >
-          WEDDING
-        </h2>
-        <p
-          className="text-white/70 text-xl mb-6"
-          style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
-        >
-          {GROOM.nick} &amp; {BRIDE.nick}
-        </p>
-        <p className="text-white/40 text-sm leading-relaxed max-w-sm mx-auto" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-          "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."
-        </p>
-        <p className="text-white/25 text-xs mt-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-          — QS. Ar-Rum: 21
-        </p>
-
-        <Divider />
-
-        <p className="text-white/40 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-          Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
-        </p>
-        <p
-          className="text-white font-semibold mt-6 text-lg"
-          style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
-        >
-          Kami yang berbahagia,
-        </p>
-        <p
-          className="text-[#E50914] text-2xl mt-1"
-          style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
-        >
-          {GROOM.nick} &amp; {BRIDE.nick}
-        </p>
-      </div>
-    </section>
-  );
-}
-
-// ─── Footer ───────────────────────────────────────────────────────────────────
-function Footer() {
-  return (
-    <footer className="bg-black border-t border-white/5 py-8 px-6 text-center">
-      <div className="flex justify-center mb-4">
+    <footer className="py-12 px-6 bg-black text-center border-t border-white/5 relative overflow-hidden">
+      <div className="relative z-10 flex flex-col items-center">
         <NetflixLogo />
+        <p className="text-white/40 text-[15px] mt-6 max-w-md mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+          Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
+        </p>
+        <div className="mt-8">
+          <p className="text-white/30 text-[13px] mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            Kami yang berbahagia,
+          </p>
+          <p
+            className="text-white text-2xl"
+            style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
+          >
+            {GROOM.nick} & {BRIDE.nick}
+          </p>
+        </div>
       </div>
-      <p className="text-white/20 text-xs" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        © 2026{" "}
-        <span className="text-white/40 font-semibold">MIG Digital Printing - Rajadesa</span>
-      </p>
-      <p className="text-white/10 text-[10px] mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        Digital Wedding Invitation · All Rights Reserved
-      </p>
     </footer>
   );
 }
 
-// ─── Main App ─────────────────────────────────────────────────────────────────
-// Ganti URL di bawah dengan file musik pilihan Anda (letakkan di folder public/ atau gunakan URL eksternal)
-const MUSIC_URL = CURRENT_CLIENT.musicUrl;
-export default function App() {
-  const [opened, setOpened] = useState(false);
-  const [muted, setMuted] = useState(false);
+// ─── Main App Component ───────────────────────────────────────────────────────
+export default function WeddingInvitation() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const handleOpen = () => {
-    setOpened(true);
-    // Putar musik saat undangan dibuka (dipicu user gesture agar browser mengizinkan)
+    setIsOpen(true);
     if (audioRef.current) {
-      audioRef.current.volume = 0.5;
-      audioRef.current.play().catch(() => {});
+      audioRef.current.play().catch(err => console.log("Audio autoplay prevented by browser", err));
+      setIsPlaying(true);
     }
   };
 
-  const toggleMute = () => {
+  const toggleAudio = () => {
     if (!audioRef.current) return;
-    audioRef.current.muted = !muted;
-    setMuted(!muted);
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
   };
 
+  if (!isOpen) {
+    return <OpeningScreen onOpen={handleOpen} />;
+  }
+
   return (
-    <div className="min-h-screen bg-[#141414]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-      {/* Audio player — loop background music */}
-      <audio ref={audioRef} src={MUSIC_URL} loop preload="auto" />
+    <div className="bg-[#141414] min-h-screen text-white antialiased selection:bg-[#E50914] selection:text-white">
+      <audio ref={audioRef} src={CURRENT_CLIENT.audioUrl || "/bgm.mp3"} loop />
+      
+      <motion.button
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1 }}
+        onClick={toggleAudio}
+        className="fixed bottom-6 right-6 z-50 bg-[#1a1a1a]/80 backdrop-blur-md border border-white/10 p-3 rounded-full text-white/80 hover:text-[#E50914] hover:bg-white/10 transition-all shadow-xl shadow-black/50"
+      >
+        {isPlaying ? <Volume2 size={24} /> : <VolumeX size={24} />}
+      </motion.button>
 
-      {/* Floating mute button — hanya muncul setelah undangan dibuka */}
-      <AnimatePresence>
-        {opened && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ delay: 1, duration: 0.3 }}
-            onClick={toggleMute}
-            title={muted ? "Aktifkan musik" : "Matikan musik"}
-            className="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-black/70 border border-white/20 backdrop-blur-sm flex items-center justify-center hover:border-[#E50914]/60 hover:bg-black/90 transition-all duration-200 shadow-lg"
-          >
-            {muted
-              ? <VolumeX size={18} className="text-white/50" />
-              : <Volume2 size={18} className="text-[#E50914]" />
-            }
-          </motion.button>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence mode="wait">
-        {!opened ? (
-          <motion.div
-            key="opening"
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          >
-            <OpeningScreen onOpen={handleOpen} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="main"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <HeroSection />
-            <CoupleSection />
-            <CountdownSection />
-            <EventSection />
-            <LoveStorySection />
-            <GallerySection />
-            <RSVPSection />
-            <GiftSection />
-            <ClosingSection />
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <HeroSection />
+      <Divider />
+      <CoupleSection />
+      <CountdownSection />
+      <EventSection />
+      <LoveStorySection />
+      <GallerySection />
+      <GiftSection />
+      <RSVPSection />
+      <FooterSection />
     </div>
   );
 }
