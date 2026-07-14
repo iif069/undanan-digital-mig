@@ -29,8 +29,8 @@ export const CLIENT_DATABASE: Record<string, any> = {
 
     // 2. Data Foto Profil (Dari gambar pertama kamu)
     photos: {
-      groom: "image/fufu-fafa/foto1.jpg",
-      bride: "image/fufu-fafa/foto1.jpg"
+      groom: "/image/fufu-fafa/foto1.jpg",
+      bride: "/image/fufu-fafa/foto1.jpg"
     },
 
     // 3. Data Galeri Foto (Dari gambar kedua kamu)
@@ -57,7 +57,7 @@ accounts: [
 ],
 
     // 4. Data Musik Latar (Dari gambar ketiga kamu)
-    musicUrl: "image/fufu-fafa/musik.mp3"
+    musicUrl: "/image/fufu-fafa/musik.mp3"
   },
   
  "Jokowi-Prabowo": {
