@@ -810,7 +810,7 @@ function FooterSection() {
         <p className="text-white/40 text-[15px] mt-6 max-w-md mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
         </p>
-        <div className="mt-8">
+        <div className="mt-8 mb-12">
           <p className="text-white/30 text-[13px] mb-2" style={{ fontFamily: "'DM Sans', sans-serif" }}>
             Kami yang berbahagia,
           </p>
@@ -819,6 +819,16 @@ function FooterSection() {
             style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
           >
             {GROOM.nick} & {BRIDE.nick}
+          </p>
+        </div>
+
+        {/* Credit MIG Digital Printing */}
+        <div className="mt-8 pt-8 border-t border-white/10 w-full max-w-xs mx-auto">
+          <p className="text-white/30 text-xs" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            Designed & Built by
+          </p>
+          <p className="text-white/50 text-[13px] font-semibold tracking-wider mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            MIG DIGITAL PRINTING
           </p>
         </div>
       </div>
