@@ -166,7 +166,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
           Kepada Yth: Bpk/Ibu/Saudara/i
         </p>
         <p
-          className="text-[#E50914] text-3xl font-semibold mb-1"
+          className="text-[#E50914] text-3xl font-semibold my-6"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           {namaTamu}
@@ -802,7 +802,6 @@ function FooterSection() {
   return (
     <footer className="py-12 px-6 bg-black text-center border-t border-white/5 relative overflow-hidden">
       <div className="relative z-10 flex flex-col items-center">
-        <NetflixLogo />
         <p className="text-white/40 text-[15px] mt-6 max-w-md mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
         </p>
