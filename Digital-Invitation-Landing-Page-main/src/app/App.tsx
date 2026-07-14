@@ -569,16 +569,10 @@ function GallerySection() {
           </div>
           
           <div className="hidden md:flex gap-2">
-            <button
-              onClick={() => scroll("left")}
-              className="p-3 bg-[#1a1a1a] border border-white/10 rounded-full text-white/50 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all"
-            >
+            <button onClick={() => scroll("left")} className="p-3 bg-[#1a1a1a] border border-white/10 rounded-full text-white/50 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all">
               <ChevronDown size={20} className="rotate-90" />
             </button>
-            <button
-              onClick={() => scroll("right")}
-              className="p-3 bg-[#1a1a1a] border border-white/10 rounded-full text-white/50 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all"
-            >
+            <button onClick={() => scroll("right")} className="p-3 bg-[#1a1a1a] border border-white/10 rounded-full text-white/50 hover:text-white hover:bg-white/10 hover:border-white/30 transition-all">
               <ChevronDown size={20} className="-rotate-90" />
             </button>
           </div>
@@ -596,9 +590,10 @@ function GallerySection() {
               className="shrink-0 w-[260px] h-[160px] md:w-[320px] md:h-[200px] snap-center cursor-pointer relative group rounded-md overflow-hidden border border-white/5 shadow-xl"
               onClick={() => setLightbox(idx)}
             >
+              {/* PERUBAHAN DI SINI: menggunakan photo.url */}
               <img
-                src={photo}
-                alt={`Gallery ${idx + 1}`}
+                src={photo.url}
+                alt={photo.label || `Gallery ${idx + 1}`}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -619,11 +614,12 @@ function GallerySection() {
               className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-10"
               onClick={() => setLightbox(null)}
             >
+              {/* PERUBAHAN DI SINI: menggunakan .url */}
               <motion.img
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                src={GALLERY_PHOTOS[lightbox]}
+                src={GALLERY_PHOTOS[lightbox].url}
                 alt={`Enlarged ${lightbox + 1}`}
                 className="max-w-full max-h-full rounded-md shadow-2xl"
               />
@@ -825,7 +821,7 @@ function FooterSection() {
         {/* Credit MIG Digital Printing */}
         <div className="mt-8 pt-8 border-t border-white/10 w-full max-w-xs mx-auto">
           <p className="text-white/30 text-xs" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            Designed & Built by
+            Copyright 2026
           </p>
           <p className="text-white/50 text-[13px] font-semibold tracking-wider mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
             MIG DIGITAL PRINTING
@@ -866,7 +862,7 @@ export default function WeddingInvitation() {
 
   return (
     <div className="bg-[#141414] min-h-screen text-white antialiased selection:bg-[#E50914] selection:text-white">
-      <audio ref={audioRef} src={CURRENT_CLIENT.audioUrl || "/bgm.mp3"} loop />
+      <audio ref={audioRef} src={CURRENT_CLIENT.musicUrl || "/bgm.mp3"} loop />
       
       <motion.button
         initial={{ opacity: 0, scale: 0.5 }}
