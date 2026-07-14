@@ -121,7 +121,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
           className="text-[#E50914] leading-none mb-3"
           style={{
             fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: "clamp(4.5rem, 14vw, 8rem)",
+            fontSize: "clamp(4.9rem, 14vw, 8rem)",
             letterSpacing: "0.02em",
             textShadow: "0 0 60px rgba(229,9,20,0.4)",
           }}
