@@ -64,13 +64,13 @@ accounts: [
     // 1. Data Teks Utama
     groom: {
       name: "Aku Pria Oslo",
-      nick: "Fufu",
+      nick: "Jokowi",
       father: "Bpk. Jack owi",
       mother: "Ibu Fulanah"
     },
     bride: {
       name: "Anteq Anteq Asheng",
-      nick: "Fafa",
+      nick: "Prabowo",
       father: "Bpk. Wowo",
       mother: "Ibu Fulanah"
     },
