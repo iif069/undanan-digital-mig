@@ -112,7 +112,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
         className="relative z-10 flex flex-col items-center"
       >
         <p
-          className="text-[#E50914] text-base tracking-[0.5em] uppercase mb-1"
+          className="text-[#E50914] text-xl tracking-[0.5em] uppercase mb-1"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           THE
@@ -121,7 +121,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
           className="text-[#E50914] leading-none mb-3"
           style={{
             fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: "clamp(3.5rem, 12vw, 7rem)",
+            fontSize: "clamp(4.5rem, 14vw, 8rem)",
             letterSpacing: "0.02em",
             textShadow: "0 0 60px rgba(229,9,20,0.4)",
           }}
@@ -179,7 +179,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
           onClick={onOpen}
-          className="flex items-center gap-3 bg-[#E50914] hover:bg-[#f6121d] text-white font-semibold px-8 py-4 rounded-md text-base shadow-lg shadow-red-900/40 transition-colors duration-200"
+          className="flex items-center gap-3 bg-[#E50914] hover:bg-[#f6121d] text-white font-semibold px-5 py-2.5 rounded-md text-base shadow-lg shadow-red-900/40 transition-colors duration-200"
           style={{ fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.08em" }}
         >
           <Mail size={18} />
