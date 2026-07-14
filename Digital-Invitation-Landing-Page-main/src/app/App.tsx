@@ -21,6 +21,7 @@ import {
 
 // 1. Pecah path URL menjadi array (contoh: "/Fufu-Fafa/Andi" menjadi ["Fufu-Fafa", "Andi"])
 const paths = window.location.pathname.split("/").filter(Boolean);
+console.log("Isi paths:", paths);
 
 // 2. Ambil nama klien (calon pengantin) dari segmen pertama URL
 // Jika kosong, otomatis fallback ke data default pertama di database kamu (misal: "Fufu-Fafa")
