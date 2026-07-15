@@ -107,7 +107,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
 
       {/* Cari baris 108 di App.tsx, lalu ganti motion.div nya dengan racikan ini: */}
 <motion.div
-  initial={{ opacity: 0, y: 15 }} // Diturunkan ke 15px agar HP tidak perlu repaint area terlalu luas
+  initial={{ opacity: 0, y: 40 }} // Diturunkan ke 15px agar HP tidak perlu repaint area terlalu luas
   animate={{ opacity: 1, y: 0 }}
   transition={{ 
     duration: 1, 
