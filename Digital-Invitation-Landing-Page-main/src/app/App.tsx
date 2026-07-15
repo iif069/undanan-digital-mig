@@ -193,7 +193,12 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
 // ─── Hero Section ─────────────────────────────────────────────────────────────
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-end overflow-hidden">
+    <motion.section 
+  initial={{ y: 80, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+  className="relative min-h-screen flex flex-col justify-end overflow-hidden"
+>
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-neutral-900 to-black">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,_rgba(229,9,20,0.12)_0%,_transparent_70%)]" />
         <div
@@ -271,7 +276,7 @@ function HeroSection() {
           <ChevronDown size={24} className="text-white/30 animate-bounce" />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
