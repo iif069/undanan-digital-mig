@@ -296,7 +296,7 @@ function CoupleSection() {
         <h2
           className="text-white w-full text-center mb-2 leading-snug"
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: "'Poppins', serif",
             fontStyle: "italic",
             fontSize: "clamp(1.1rem, 4.5vw, 2.25rem)",
           }}
@@ -304,7 +304,7 @@ function CoupleSection() {
           Bismillahirrahmanirrahim
         </h2>
 
-        <p className="text-white/50 text-[15px] md:text-base mb-12 max-w-md mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/80 text-base mb-12 max-w-md mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Dengan memohon rahmat dan ridho Allah SWT, kami mengundang kehadiran Bapak/Ibu/Saudara/i pada pernikahan kami.
         </p>
 
@@ -320,7 +320,7 @@ function CoupleSection() {
             </div>
             <p
               className="text-[#E50914] text-3xl mb-1"
-              style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
+              style={{ fontFamily: "'Bebas Neue', serif" }}
             >
               {GROOM.nick}
             </p>
@@ -351,7 +351,7 @@ function CoupleSection() {
             </div>
             <p
               className="text-[#E50914] text-3xl mb-1"
-              style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
+              style={{ fontFamily: "'bebas Neue', serif"}}
             >
               {BRIDE.nick}
             </p>
