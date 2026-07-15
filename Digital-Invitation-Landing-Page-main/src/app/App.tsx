@@ -105,12 +105,18 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
     <div className="min-h-screen bg-black flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_black_100%)] pointer-events-none" />
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 flex flex-col items-center"
-      >
+      {/* Cari baris 108 di App.tsx, lalu ganti motion.div nya dengan racikan ini: */}
+<motion.div
+  initial={{ opacity: 0, y: 15 }} // Diturunkan ke 15px agar HP tidak perlu repaint area terlalu luas
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ 
+    duration: 1, 
+    ease: [0.16, 1, 0.3, 1], // Menggunakan kurva "Ultra-Smooth" cubic-bezier ala Apple
+    delay: 0.15 // Memberikan "nafas" 150ms agar browser selesai loading font & kartu sebelum animasi jalan
+  }}
+  className="relative z-10 flex flex-col items-center transform-gpu"
+  style={{ willChange: "transform, opacity" }} // Memaksa HP menggunakan GPU (Hardware Acceleration)
+>
         <p
           className="text-[#E50914] text-xl tracking-[0.5em] uppercase mb-1"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
