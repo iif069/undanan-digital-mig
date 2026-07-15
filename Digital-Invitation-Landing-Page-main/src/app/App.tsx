@@ -327,7 +327,7 @@ function CoupleSection() {
             <p className="text-white font-semibold text-lg mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {GROOM.name}
             </p>
-            <p className="text-white/50  leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/50 text-base leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Putra dari<br />
               <span className="text-white/70">{GROOM.father}</span><br />
               <span className="text-white/70">&amp; {GROOM.mother}</span>
@@ -360,8 +360,8 @@ function CoupleSection() {
             </p>
             <p className="text-white/50 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Putri dari<br />
-              <span className="text-white/70">{BRIDE.father}</span><br />
-              <span className="text-white/70">&amp; {BRIDE.mother}</span>
+              <span className="text-white/70 text-base">{BRIDE.father}</span><br />
+              <span className="text-white/70 text-base">&amp; {BRIDE.mother}</span>
             </p>
           </div>
         </div>
@@ -423,19 +423,19 @@ function EventSection() {
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Calendar size={18} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/70 text-base" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {AKAD.date}
                 </p>
               </div>
               <div className="flex items-start gap-3">
                 <Clock size={18} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/70 text-base" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {AKAD.time}
                 </p>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/70 text-base" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {AKAD.venue}
                 </p>
               </div>
@@ -462,13 +462,13 @@ function EventSection() {
               </div>
               <div className="flex items-start gap-3">
                 <Clock size={18} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/70 text-base" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {RESEPSI.time}
                 </p>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-white/40 mt-0.5 shrink-0" />
-                <p className="text-white/70 text-[15px]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <p className="text-white/70 text-base" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                   {RESEPSI.venue}
                 </p>
               </div>
@@ -830,7 +830,7 @@ function FooterSection() {
           </p>
           <p
             className="text-white text-2xl"
-            style={{ fontFamily: "'Bebas Neue', serif", fontStyle: "italic" }}
+            style={{ fontFamily: "'Bebas Neue', serif" }}
           >
             {GROOM.nick} & {BRIDE.nick}
           </p>
