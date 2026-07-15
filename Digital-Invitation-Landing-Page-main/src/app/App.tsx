@@ -830,7 +830,7 @@ function FooterSection() {
           </p>
           <p
             className="text-white text-2xl"
-            style={{ fontFamily: "'Playfair Display', serif", fontStyle: "italic" }}
+            style={{ fontFamily: "'Bebas Neue', serif", fontStyle: "italic" }}
           >
             {GROOM.nick} & {BRIDE.nick}
           </p>
@@ -838,10 +838,10 @@ function FooterSection() {
 
         {/* Credit MIG Digital Printing */}
         <div className="mt-8 pt-8 border-t border-white/10 w-full max-w-xs mx-auto">
-          <p className="text-white/30 text-xs" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+          <p className="text-white/50 text-xs" style={{ fontFamily: "'DM Sans', sans-serif" }}>
             Copyright 2026
           </p>
-          <p className="text-white/50 text-[13px] font-semibold tracking-wider mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+          <p className="text-white text-[13px] font-semibold tracking-wider mt-1" style={{ fontFamily: "'DM Sans', sans-serif" }}>
             MIG DIGITAL PRINTING
           </p>
         </div>
