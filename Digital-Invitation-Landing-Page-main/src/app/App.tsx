@@ -238,8 +238,8 @@ function HeroSection() {
       <div className="absolute inset-0 z-10 px-6 pb-16 text-center flex flex-col justify-center items-center">
         <div className="text-white text-center mb-20 px-4 max-w-xl mx-auto">
     <p className="text-base md:text-base font-regular mb-2">
-      "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."
-    </p>
+      "Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+      </p>
     <p className="text-base font-bold tracking-widest">
       (QS. AR-RUM: 21)
     </p>
@@ -327,7 +327,7 @@ function CoupleSection() {
             <p className="text-white font-semibold text-lg mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {GROOM.name}
             </p>
-            <p className="text-white/50 text-[15px] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/50  leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Putra dari<br />
               <span className="text-white/70">{GROOM.father}</span><br />
               <span className="text-white/70">&amp; {GROOM.mother}</span>
@@ -358,7 +358,7 @@ function CoupleSection() {
             <p className="text-white font-semibold text-lg mb-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               {BRIDE.name}
             </p>
-            <p className="text-white/50 text-[15px] leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            <p className="text-white/50 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
               Putri dari<br />
               <span className="text-white/70">{BRIDE.father}</span><br />
               <span className="text-white/70">&amp; {BRIDE.mother}</span>
@@ -477,7 +477,7 @@ function EventSection() {
         </div>
 
         <motion.a
-          href="https://maps.google.com"
+          href="https://maps.app.goo.gl/B9dBe5MKC3e3WpEu9"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.03 }}
@@ -670,7 +670,7 @@ function GiftSection() {
         >
           AMPLOP DIGITAL
         </h2>
-        <p className="text-white/50 text-[15px] mb-10 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/50 mb-10 leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           Doa restu Anda adalah hadiah terbaik. Namun jika ingin memberikan tanda kasih:
         </p>
 
