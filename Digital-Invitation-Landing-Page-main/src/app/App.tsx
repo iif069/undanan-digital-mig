@@ -207,13 +207,13 @@ function HeroSection() {
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/5 pointer-events-none" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[#E50914]/10 pointer-events-none" />
 
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] text-center">
+      <div className="absolute top-[65%] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
         <div className="flex flex-col items-center">
           <span
             className="text-white/10 leading-none select-none"
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(6rem, 25vw, 18rem)",
+              fontSize: "clamp(9rem, 25vw, 18rem)",
               letterSpacing: "-0.02em",
             }}
           >
@@ -234,7 +234,7 @@ function HeroSection() {
     </p>
   </div>
         <span
-          className="bg-[#E50914] text-white text-[13px] uppercase tracking-[0.3em] px-3 py-1 rounded-sm font-semibold mb-5 inline-block"
+          className="mt-6 md:mt-16 bg-[#E50914] text-white text-[13px] uppercase tracking-[0.3em] px-3 py-1 rounded-sm font-semibold mb-5 inline-block"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
           Coming Soon
@@ -250,7 +250,7 @@ function HeroSection() {
           className="text-white leading-none mb-2"
           style={{
             fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: "clamp(3rem, 14vw, 8rem)",
+            fontSize: "clamp(5rem, 14vw, 8rem)",
             letterSpacing: "0.04em",
             textShadow: "0 2px 40px rgba(0,0,0,0.8)",
           }}
