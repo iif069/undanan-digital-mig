@@ -171,7 +171,7 @@ function OpeningScreen({ onOpen }: { onOpen: () => void }) {
         >
           {namaTamu}
         </p>
-        <p className="text-white/40 text-[13px] mb-8" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        <p className="text-white/40 text-[12px] mb-8" style={{ fontFamily: "'DM Sans', sans-serif" }}>
           *) Mohon maaf apabila ada kesalahan penulisan nama/gelar
         </p>
 
@@ -225,6 +225,14 @@ function HeroSection() {
       <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[#141414] via-[#141414]/70 to-transparent pointer-events-none" />
 
       <div className="absolute inset-0 z-10 px-6 pb-16 text-center flex flex-col justify-center items-center">
+        <div className="text-white text-center mb-6 px-4 max-w-xl mx-auto">
+    <p className="italic text-sm md:text-base font-light mb-2">
+      "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya..."
+    </p>
+    <p className="text-xs font-bold tracking-widest">
+      (QS. AR-RUM: 21)
+    </p>
+  </div>
         <span
           className="bg-[#E50914] text-white text-[13px] uppercase tracking-[0.3em] px-3 py-1 rounded-sm font-semibold mb-5 inline-block"
           style={{ fontFamily: "'DM Sans', sans-serif" }}
